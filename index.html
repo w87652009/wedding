@@ -507,13 +507,17 @@
             btn.innerText = '正在傳送幸福回覆...';
             btn.disabled = true;
 
+    // ✨ 優化版的打包邏輯
+    const isAttending = document.querySelector('input[name="attendance"]:checked')?.value === '出席';
+
     const payload = {
         name: document.getElementById('guestName').value,
         side: document.querySelector('input[name="guestSide"]:checked')?.value || '',
         relationship: document.getElementById('relationship').value,
         status: document.querySelector('input[name="attendance"]:checked')?.value || '',
-        count: document.getElementById('guestCount')?.value || '1',
-        diet: document.getElementById('diet')?.value || '葷食',
+        // 😎 如果不出席，人數強制給 0，飲食習慣給空字串，避免後台邏輯錯亂
+        count: isAttending ? (document.getElementById('guestCount')?.value || '1') : '0',
+        diet: isAttending ? (document.getElementById('diet')?.value || '葷食') : '',
         invite_type: document.querySelector('input[name="inviteType"]:checked')?.value || '',
         email: document.getElementById('guestEmail')?.value || '',
         address: document.getElementById('guestAddress')?.value || '',
