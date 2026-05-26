@@ -455,12 +455,19 @@
         // 1. 監聽「出席意願」改變
         attendRadios.forEach(radio => {
             radio.addEventListener('change', (e) => {
+                const guestCountInput = document.getElementById('guestCount');
+                const dietInput = document.getElementById('diet');
+
                 if (e.target.value === '出席') {
                     attendDetails.classList.add('show');
                     digitalLabel.innerText = '電子喜帖 (環保)';
+                    if(guestCountInput) guestCountInput.required = true;
+                    if(dietInput) dietInput.required = true;
                 } else {
                     attendDetails.classList.remove('show');
                     digitalLabel.innerText = '電子喜帖 (純留念)';
+                    if(guestCountInput) guestCountInput.required = false;
+                    if(dietInput) dietInput.required = false;
                 }
 
                 const currentTicket = document.querySelector('input[name="inviteType"]:checked');
@@ -480,13 +487,15 @@
                     emailField.classList.add('show');
                     addressField.classList.remove('show');
                     emailInput.required = true;
-                    addressInput.required = false;
+                    addressInput.required = false; // 隱藏了，絕對不能必填
+                    addressInput.value = '';        // 清空內容
                     updateEmailHint(attendValue); 
                 } else if (e.target.value === '紙本') {
                     addressField.classList.add('show');
                     emailField.classList.remove('show');
                     addressInput.required = true;
-                    emailInput.required = false;
+                    emailInput.required = false;   // 隱藏了，絕對不能必填
+                    emailInput.value = '';         // 清空內容
                 }
             });
         });
@@ -507,22 +516,23 @@
             btn.innerText = '正在傳送幸福回覆...';
             btn.disabled = true;
 
-    // ✨ 優化版的打包邏輯
-    const isAttending = document.querySelector('input[name="attendance"]:checked')?.value === '出席';
+            // ✨ 優化版的打包邏輯
+            const isAttending = document.querySelector('input[name="attendance"]:checked')?.value === '出席';
+            const inviteTypeSelected = document.querySelector('input[name="inviteType"]:checked')?.value || '';
 
-    const payload = {
-        name: document.getElementById('guestName').value,
-        side: document.querySelector('input[name="guestSide"]:checked')?.value || '',
-        relationship: document.getElementById('relationship').value,
-        status: document.querySelector('input[name="attendance"]:checked')?.value || '',
-        // 😎 如果不出席，人數強制給 0，飲食習慣給空字串，避免後台邏輯錯亂
-        count: isAttending ? (document.getElementById('guestCount')?.value || '1') : '0',
-        diet: isAttending ? (document.getElementById('diet')?.value || '葷食') : '',
-        invite_type: document.querySelector('input[name="inviteType"]:checked')?.value || '',
-        email: document.getElementById('guestEmail')?.value || '',
-        address: document.getElementById('guestAddress')?.value || '',
-        blessing: document.getElementById('blessing').value
-    };
+            const payload = {
+                name: document.getElementById('guestName').value,
+                side: document.querySelector('input[name="guestSide"]:checked')?.value || '',
+                relationship: document.getElementById('relationship').value,
+                status: document.querySelector('input[name="attendance"]:checked')?.value || '',
+                count: isAttending ? (document.getElementById('guestCount')?.value || '1') : '0',
+                diet: isAttending ? (document.getElementById('diet')?.value || '葷食') : '',
+                invite_type: inviteTypeSelected,
+                // 防禦性修剪：如果沒選或被隱藏，直接給空字串
+                email: (inviteTypeSelected === '電子') ? (document.getElementById('guestEmail')?.value || '') : '',
+                address: (inviteTypeSelected === '紙本') ? (document.getElementById('guestAddress')?.value || '') : '',
+                blessing: document.getElementById('blessing').value
+            };
 
             fetch(GAS_WEB_APP_URL, {
                 method: 'POST',
@@ -536,9 +546,12 @@
                 alert('收到您的回覆囉！期待與您相見！');
                 document.getElementById('weddingForm').reset(); 
                 
+                // 重設所有狀態
                 attendDetails.classList.remove('show');
                 emailField.classList.remove('show');
                 addressField.classList.remove('show');
+                emailInput.required = false;
+                addressInput.required = false;
             })
             .catch(error => {
                 console.error('Error:', error);
