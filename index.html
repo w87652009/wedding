@@ -65,22 +65,17 @@
             animation: fadeInUp 1.2s ease;
         }
 
-        /* 相片預留區 */
-        .hero-image-placeholder {
-            width: 100%;
-            max-width: 500px;
-            height: 350px;
-            background-color: var(--milk-tea);
-            border-radius: 200px 200px 0 0; /* 韓式拱門造型 */
-            box-shadow: 0 10px 30px var(--shadow);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--white);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            animation: fadeIn 1.5s ease;
-        }
+        /* 這是新的婚紗照樣式（完美繼承韓式拱門比例與防變形機制） */
+.hero-wedding-image {
+    width: 100%;
+    max-width: 450px;           /* 限制最大寬度，避免電腦版太大 */
+    height: auto;               /* 高度自動縮放 */
+    aspect-ratio: 3 / 4;        /* 固定相片比例為 3:4 直式（若照片是橫式可改 4 / 3 或刪除此行） */
+    object-fit: cover;          /* 防變形機制：自動裁剪多餘邊緣 */
+    border-radius: 250px 250px 0 0; /* 完美的韓式拱門曲線 */
+    box-shadow: 0 10px 30px var(--shadow);
+    animation: fadeIn 1.5s ease;
+}
 
         /* 婚宴資訊區塊 */
         .info-section {
@@ -289,12 +284,10 @@
 
     <!-- 1. 浪漫開場區塊 -->
     <section class="hero-section">
-        <h1 class="hero-title">S & S</h1>
-        <p class="hero-subtitle">2027.05.15 | 誠摯邀請您參與我們的婚禮</p>
-        <div class="hero-image-placeholder">
-            [ 這裡未來可以放上你們的大尺寸婚紗照 ]
-        </div>
-    </section>
+    <h1 class="hero-title">S & S</h1>
+    <p class="hero-subtitle">2027.05.15 | 誠摯邀請您參與我們的婚禮</p>
+    <img src="IMG_4657.png" alt="Wedding Photo" class="hero-wedding-image">
+</section>
 
     <!-- 2. 婚宴資訊區塊 -->
     <section class="info-section">
