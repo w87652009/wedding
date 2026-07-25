@@ -37,24 +37,40 @@
         }
 
         /* 浪漫開場區塊 */
+        /* --- 1. 修復標題區塊 --- */
         .hero-section {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            background: linear-gradient(to bottom, #F9F4EE, var(--bg-cream));
-            padding: 20px;
+            padding: 30px 20px 10px 20px; /* 增加上方留白，避免文字貼頂 */
+            overflow: hidden;
         }
         
         .hero-title {
             font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            letter-spacing: 6px;
+            font-size: 2rem;               /* 適合手機閱讀的字級 */
+            line-height: 1.4;
+            letter-spacing: 2px;
             color: var(--dark-tea);
-            margin-bottom: 10px;
+            margin: 0 0 15px 0;
             animation: fadeInDown 1.2s ease;
+        }
+        
+        /* --- 2. 素食與寶寶椅動態卡片美化 CSS --- */
+        .sub-option-box {
+            background-color: #FAFAFA;
+            border: 1px solid #E8E0D8;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+        
+        .sub-option-box label {
+            font-size: 0.9rem;
+            color: #6B5B52;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 500;
         }
         .hero-subtitle {
             font-size: 1.1rem;
@@ -283,11 +299,11 @@
 
     <!-- 1. 浪漫開場區塊 -->
     <section class="hero-section">
-    <h1 class="hero-title">Shun & Hsia</h1>
-    <p class="hero-subtitle">2027.05.15</p>
-    <p class="hero-subtitle">誠摯邀請您參與我們的婚禮</p>
-    <img src="IMG_0394.jpeg" alt="Wedding Photo" class="hero-wedding-image">
-</section>
+        <h1 class="hero-title">Shun & Hsia</h1>
+        <p class="hero-subtitle">2027.05.15</p>
+        <p class="hero-subtitle">誠摯邀請您參與我們的婚禮</p>
+        <img src="IMG_0394.jpeg" alt="Wedding Photo" class="hero-wedding-image">
+    </section>
 
     <!-- 2. 婚宴資訊區塊 -->
     <section class="info-section">
@@ -364,34 +380,64 @@
                 </div>
 
                 <!-- 「出席」才會展開的動態區塊 -->
-                <div id="attendDetails" class="conditional-fields">
-                    <div class="conditional-inner">
-                        <div class="form-group">
-                            <label for="guestCount">出席總人數</label>
-                            <select id="guestCount" name="guestCount">
-                                <option value="1">1 位</option>
-                                <option value="2">2 位</option>
-                                <option value="3">3 位</option>
-                                <option value="4">4 位</option>
-                                <option value="5">5 位</option>
-                                <option value="6">6 位</option>
-                                <option value="7">7 位</option>
-                                <option value="8">8 位</option>
-                                <option value="9">9 位</option>
-                                <option value="10">10 位</option>
-                            </select>
-                        </div>  
-
-                        <div class="form-group">
-                            <label for="diet">飲食習慣</label>
-                            <select id="diet" name="diet">
-                                <option value="葷食">均為葷食</option>
-                                <option value="全素">有準備全素</option>
-                                <option value="蛋奶素">有準備蛋奶素</option>
+                <div id="attendDetails" class="collapse-field">
+                    <!-- 人數選擇 (1~10人) -->
+                    <div class="form-group">
+                        <label for="guestCount">出席人數 *</label>
+                        <select id="guestCount" class="form-control">
+                            <option value="1">1 位</option>
+                            <option value="2">2 位</option>
+                            <option value="3">3 位</option>
+                            <option value="4">4 位</option>
+                            <option value="5">5 位</option>
+                            <option value="6">6 位</option>
+                            <option value="7">7 位</option>
+                            <option value="8">8 位</option>
+                            <option value="9">9 位</option>
+                            <option value="10">10 位</option>
+                        </select>
+                    </div>
+                
+                    <!-- 素食需求 -->
+                    <div class="form-group">
+                        <label for="vegSelect">素食需求 *</label>
+                        <select id="vegSelect" class="form-control" onchange="toggleVegBox(this.value)">
+                            <option value="無素食需求">全數葷食（無素食需求）</option>
+                            <option value="有素食需求">有素食需求</option>
+                        </select>
+                
+                        <!-- 動態展開的美化盒子 -->
+                        <div id="vegDetailBox" class="sub-option-box collapse-field">
+                            <label for="vegCount">請選擇素食人數：</label>
+                            <select id="vegCount" class="form-control">
+                                <option value="1位素食">1 位素食</option>
+                                <option value="2位素食">2 位素食</option>
+                                <option value="3位素食">3 位素食</option>
+                                <option value="4位素食">4 位素食</option>
+                                <option value="5位以上/特殊需求">5位以上或特殊需求（請於備註說明）</option>
                             </select>
                         </div>
                     </div>
-                </div>
+                
+                    <!-- 寶寶椅需求 -->
+                    <div class="form-group">
+                        <label for="babyChairSelect">兒童座椅需求 *</label>
+                        <select id="babyChairSelect" class="form-control" onchange="toggleBabyChairBox(this.value)">
+                            <option value="不需要">不需要</option>
+                            <option value="需要寶寶椅">需要寶寶椅</option>
+                        </select>
+                
+                        <!-- 動態展開的美化盒子 -->
+                        <div id="babyChairDetailBox" class="sub-option-box collapse-field">
+                            <label for="babyChairCount">請選擇寶寶椅數量：</label>
+                            <select id="babyChairCount" class="form-control">
+                                <option value="1張寶寶椅">1 張</option>
+                                <option value="2張寶寶椅">2 張</option>
+                                <option value="3張寶寶椅">3 張</option>
+                            </select>
+                        </div>
+                    </div>
+            </div>
 
                 <!-- 喜帖形式 -->
                 <div class="form-group">
@@ -444,129 +490,164 @@
     </footer>
 
     <!-- --- JavaScript 邏輯控制 --- -->
-    <script>
-        const attendRadios = document.querySelectorAll('input[name="attendance"]');
-        const attendDetails = document.getElementById('attendDetails');
-        const inviteRadios = document.querySelectorAll('input[name="inviteType"]');
+<script>
+    const attendRadios = document.querySelectorAll('input[name="attendance"]');
+    const attendDetails = document.getElementById('attendDetails');
+    const inviteRadios = document.querySelectorAll('input[name="inviteType"]');
 
-        const emailField = document.getElementById('emailField');
-        const addressField = document.getElementById('addressField');
-        const emailInput = document.getElementById('guestEmail');
-        const addressInput = document.getElementById('guestAddress');
+    const emailField = document.getElementById('emailField');
+    const addressField = document.getElementById('addressField');
+    const emailInput = document.getElementById('guestEmail');
+    const addressInput = document.getElementById('guestAddress');
 
-        const digitalLabel = document.getElementById('digitalLabel');
-        const emailHint = document.getElementById('emailHint');
+    const digitalLabel = document.getElementById('digitalLabel');
+    const emailHint = document.getElementById('emailHint');
 
-        // 1. 監聽「出席意願」改變
-        attendRadios.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                const guestCountInput = document.getElementById('guestCount');
-                const dietInput = document.getElementById('diet');
-
-                if (e.target.value === '出席') {
-                    attendDetails.classList.add('show');
-                    digitalLabel.innerText = '電子喜帖 (環保)';
-                    if(guestCountInput) guestCountInput.required = true;
-                    if(dietInput) dietInput.required = true;
-                } else {
-                    attendDetails.classList.remove('show');
-                    digitalLabel.innerText = '電子喜帖 (純留念)';
-                    if(guestCountInput) guestCountInput.required = false;
-                    if(dietInput) dietInput.required = false;
-                }
-
-                const currentTicket = document.querySelector('input[name="inviteType"]:checked');
-                if (currentTicket && currentTicket.value === '電子') {
-                    updateEmailHint(e.target.value);
-                }
-            });
-        });
-
-        // 2. 監聽「喜帖形式」改變
-        inviteRadios.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                const currentAttend = document.querySelector('input[name="attendance"]:checked');
-                const attendValue = currentAttend ? currentAttend.value : '出席';
-
-                if (e.target.value === '電子') {
-                    emailField.classList.add('show');
-                    addressField.classList.remove('show');
-                    emailInput.required = true;
-                    addressInput.required = false; // 隱藏了，絕對不能必填
-                    addressInput.value = '';        // 清空內容
-                    updateEmailHint(attendValue); 
-                } else if (e.target.value === '紙本') {
-                    addressField.classList.add('show');
-                    emailField.classList.remove('show');
-                    addressInput.required = true;
-                    emailInput.required = false;   // 隱藏了，絕對不能必填
-                    emailInput.value = '';         // 清空內容
-                }
-            });
-        });
-
-        function updateEmailHint(attendStatus) {
-            if (attendStatus === '出席') {
-                emailHint.innerText = '✉️ 專屬報到 QR Code 與電子喜帖將會發送到此信箱：';
+    // ✨ 1. 動態控制素食與寶寶椅美化盒子的展開/收合
+    function toggleVegBox(val) {
+        const box = document.getElementById('vegDetailBox');
+        if (box) {
+            if (val === '有素食需求') {
+                box.classList.add('show');
             } else {
-                emailHint.innerText = '💝 謝謝您的祝福！珍藏版電子喜帖（不含報到條碼）將會寄至此信箱：';
+                box.classList.remove('show');
             }
         }
+    }
 
-        // 3. 表單真正送出發射到 GAS 
-        document.getElementById('weddingForm').addEventListener('submit', function(e) {
-            e.preventDefault(); 
-            
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = '正在傳送幸福回覆...';
-            btn.disabled = true;
+    function toggleBabyChairBox(val) {
+        const box = document.getElementById('babyChairDetailBox');
+        if (box) {
+            if (val === '需要寶寶椅') {
+                box.classList.add('show');
+            } else {
+                box.classList.remove('show');
+            }
+        }
+    }
 
-            // ✨ 優化版的打包邏輯
-            const isAttending = document.querySelector('input[name="attendance"]:checked')?.value === '出席';
-            const inviteTypeSelected = document.querySelector('input[name="inviteType"]:checked')?.value || '';
+    // ✨ 2. 監聽「出席意願」改變
+    attendRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const guestCountInput = document.getElementById('guestCount');
 
-            const payload = {
-                name: document.getElementById('guestName').value,
-                side: document.querySelector('input[name="guestSide"]:checked')?.value || '',
-                relationship: document.getElementById('relationship').value,
-                status: document.querySelector('input[name="attendance"]:checked')?.value || '',
-                count: isAttending ? (document.getElementById('guestCount')?.value || '1') : '0',
-                diet: isAttending ? (document.getElementById('diet')?.value || '葷食') : '',
-                invite_type: inviteTypeSelected,
-                // 防禦性修剪：如果沒選或被隱藏，直接給空字串
-                email: (inviteTypeSelected === '電子') ? (document.getElementById('guestEmail')?.value || '') : '',
-                address: (inviteTypeSelected === '紙本') ? (document.getElementById('guestAddress')?.value || '') : '',
-                blessing: document.getElementById('blessing').value
-            };
-
-            fetch(GAS_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors', 
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(() => {
-                alert('收到您的回覆囉！期待與您相見！');
-                document.getElementById('weddingForm').reset(); 
-                
-                // 重設所有狀態
+            if (e.target.value === '出席') {
+                attendDetails.classList.add('show');
+                digitalLabel.innerText = '電子喜帖 (環保)';
+                if(guestCountInput) guestCountInput.required = true;
+            } else {
                 attendDetails.classList.remove('show');
-                emailField.classList.remove('show');
-                addressField.classList.remove('show');
-                emailInput.required = false;
-                addressInput.required = false;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('糟了，連線好像有點問題，請再試一次！');
-            })
-            .finally(() => {
-                btn.innerText = '送出回覆';
-                btn.disabled = false;
-            });
+                digitalLabel.innerText = '電子喜帖 (純留念)';
+                if(guestCountInput) guestCountInput.required = false;
+            }
+
+            const currentTicket = document.querySelector('input[name="inviteType"]:checked');
+            if (currentTicket && currentTicket.value === '電子') {
+                updateEmailHint(e.target.value);
+            }
         });
-    </script>
+    });
+
+    // ✨ 3. 監聽「喜帖形式」改變
+    inviteRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const currentAttend = document.querySelector('input[name="attendance"]:checked');
+            const attendValue = currentAttend ? currentAttend.value : '出席';
+
+            if (e.target.value === '電子') {
+                emailField.classList.add('show');
+                addressField.classList.remove('show');
+                emailInput.required = true;
+                addressInput.required = false; // 隱藏了，絕對不能必填
+                addressInput.value = '';        // 清空內容
+                updateEmailHint(attendValue); 
+            } else if (e.target.value === '紙本') {
+                addressField.classList.add('show');
+                emailField.classList.remove('show');
+                addressInput.required = true;
+                emailInput.required = false;   // 隱藏了，絕對不能必填
+                emailInput.value = '';         // 清空內容
+            }
+        });
+    });
+
+    function updateEmailHint(attendStatus) {
+        if (attendStatus === '出席') {
+            emailHint.innerText = '✉️ 專屬報到 QR Code 與電子喜帖將會發送到此信箱：';
+        } else {
+            emailHint.innerText = '💝 謝謝您的祝福！珍藏版電子喜帖（不含報到條碼）將會寄至此信箱：';
+        }
+    }
+
+    // ✨ 4. 表單送出發射到 GAS
+    document.getElementById('weddingForm').addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        
+        const btn = document.getElementById('submitBtn');
+        btn.innerText = '正在傳送幸福回覆...';
+        btn.disabled = true;
+
+        const isAttending = document.querySelector('input[name="attendance"]:checked')?.value === '出席';
+        const inviteTypeSelected = document.querySelector('input[name="inviteType"]:checked')?.value || '';
+
+        // 計算素食結果字串
+        const vegSelectVal = document.getElementById('vegSelect')?.value || '';
+        const vegCountVal = document.getElementById('vegCount')?.value || '';
+        const finalDiet = isAttending ? (vegSelectVal === '有素食需求' ? `有素食 (${vegCountVal})` : '全數葷食') : '';
+
+        // 計算寶寶椅結果字串
+        const babySelectVal = document.getElementById('babyChairSelect')?.value || '';
+        const babyCountVal = document.getElementById('babyChairCount')?.value || '';
+        const finalBabyChair = isAttending ? (babySelectVal === '需要寶寶椅' ? `需要 (${babyCountVal})` : '不需要') : '';
+
+        const payload = {
+            name: document.getElementById('guestName').value,
+            side: document.querySelector('input[name="guestSide"]:checked')?.value || '',
+            relationship: document.getElementById('relationship').value,
+            status: document.querySelector('input[name="attendance"]:checked')?.value || '',
+            count: isAttending ? String(document.getElementById('guestCount')?.value || '1') : '0',
+            diet: finalDiet,
+            baby_chair: finalBabyChair, // 傳送寶寶椅資料到 GAS
+            invite_type: inviteTypeSelected,
+            email: (inviteTypeSelected === '電子') ? (document.getElementById('guestEmail')?.value || '') : '',
+            address: (inviteTypeSelected === '紙本') ? (document.getElementById('guestAddress')?.value || '') : '',
+            blessing: document.getElementById('blessing').value
+        };
+
+        fetch(GAS_WEB_APP_URL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            alert('收到您的回覆囉！期待與您相見！');
+            document.getElementById('weddingForm').reset(); 
+            
+            // 重設所有狀態與動態小盒子
+            attendDetails.classList.remove('show');
+            emailField.classList.remove('show');
+            addressField.classList.remove('show');
+            
+            const vegBox = document.getElementById('vegDetailBox');
+            const babyBox = document.getElementById('babyChairDetailBox');
+            if(vegBox) vegBox.classList.remove('show');
+            if(babyBox) babyBox.classList.remove('show');
+
+            emailInput.required = false;
+            addressInput.required = false;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('糟了，連線好像有點問題，請再試一次！');
+        })
+        .finally(() => {
+            btn.innerText = '送出回覆';
+            btn.disabled = false;
+        });
+    });
+</script>
 </body>
 </html>
