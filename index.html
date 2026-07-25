@@ -11,288 +11,284 @@
         const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxjX5BrwboDML_03QJ-9YsQy0rT2K9iedH2jhCfsC1tADZpU-Y4VhNC9tpjRja7Kjbtbg/exec";
     </script>
 
-    <style>
-        /* --- CSS 樣式與奶茶風色調設定 --- */
-        :root {
-            --bg-cream: #FDFBF7;       /* 溫柔暖白底色 */
-            --milk-tea: #E6DCD2;       /* 奶油奶茶色 */
-            --dark-tea: #8C7A6B;       /* 木質深棕色（文字用） */
-            --accent-gold: #C5A880;    /* 質感金調（點綴用） */
-            --white: #FFFFFF;
-            --shadow: rgba(140, 122, 107, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: var(--bg-cream);
-            color: var(--dark-tea);
-            line-height: 1.8;
-            overflow-x: hidden;
-        }
-
-        /* 浪漫開場區塊 */
-        /* --- 1. 修復標題區塊 --- */
-        .hero-section {
-            text-align: center;
-            padding: 30px 20px 10px 20px; /* 增加上方留白，避免文字貼頂 */
-            overflow: hidden;
-        }
-        
-        .hero-title {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;               /* 適合手機閱讀的字級 */
-            line-height: 1.4;
-            letter-spacing: 2px;
-            color: var(--dark-tea);
-            margin: 0 0 15px 0;
-            animation: fadeInDown 1.2s ease;
-        }
-        
-        /* --- 2. 素食與寶寶椅動態卡片美化 CSS --- */
-        .sub-option-box {
-            background-color: #FAFAFA;
-            border: 1px solid #E8E0D8;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 10px;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
-            transition: all 0.3s ease;
-        }
-        
-        .sub-option-box label {
-            font-size: 0.9rem;
-            color: #6B5B52;
-            margin-bottom: 8px;
-            display: block;
-            font-weight: 500;
-        }
-        .hero-subtitle {
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            font-weight: 300;
-            margin-bottom: 30px;
-            animation: fadeInUp 1.2s ease;
-        }
-
-        /* 這是新的婚紗照樣式（完美繼承韓式拱門比例與防變形機制） */
-.hero-wedding-image {
-    width: 100%;
-    max-width: 450px;           /* 限制最大寬度，避免電腦版太大 */
-    height: auto;               /* 高度自動縮放 */
-    aspect-ratio: 3 / 4;        /* 固定相片比例為 3:4 直式（若照片是橫式可改 4 / 3 或刪除此行） */
-    object-fit: cover;          /* 防變形機制：自動裁剪多餘邊緣 */
-    border-radius: 250px 250px 0 0; /* 完美的韓式拱門曲線 */
-    box-shadow: 0 10px 30px var(--shadow);
-    animation: fadeIn 1.5s ease;
-}
-
-        /* 婚宴資訊區塊 */
-        .info-section {
-            padding: 80px 20px;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 1px;
-            background-color: var(--accent-gold);
-        }
-
-        .info-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 600px) {
-            .info-cards { grid-template-columns: 1fr; }
-        }
-
-        .card {
-            background-color: var(--white);
-            padding: 30px 20px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px var(--shadow);
-            border: 1px solid rgba(230, 220, 210, 0.5);
-        }
-
-        .card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: var(--accent-gold);
-        }
-
-        /* RSVP 表單區塊 */
-        .rsvp-section {
-            background-color: #F6F0E8;
-            padding: 80px 20px;
-        }
-
-        .rsvp-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: var(--white);
-            padding: 40px 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px var(--shadow);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        /* 輸入框樣式 */
-        input[type="text"], input[type="email"], select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--milk-tea);
-            border-radius: 8px;
-            background-color: var(--bg-cream);
-            color: var(--dark-tea);
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.2);
-        }
-
-        /* 單選鈕按鈕組 */
-        .radio-group {
-            display: flex;
-            gap: 15px;
-        }
-
-        .radio-label {
-            flex: 1;
-            display: block;
-            text-align: center;
-            padding: 12px;
-            border: 1px solid var(--milk-tea);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background-color: var(--bg-cream);
-            font-size: 0.95rem;
-        }
-
-        /* 隱藏原生 Radio */
-        .radio-group input[type="radio"] {
-            display: none;
-        }
-
-        /* 選取時樣式 */
-        .radio-group input[type="radio"]:checked + .radio-label {
-            background-color: var(--dark-tea);
-            color: var(--white);
-            border-color: var(--dark-tea);
-        }
-
-        /* 動態隱藏區塊 CSS */
-        .conditional-fields {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, opacity 0.4s ease;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .conditional-fields.show {
-            max-height: 1000px;
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
-        .conditional-inner {
-            padding: 20px 0 10px 0;
-            border-top: 1px solid var(--milk-tea);
-            margin-top: 15px;
-        }
-
-        /* 貼心提示文字樣式 */
-        .hint-text {
-            color: var(--accent-gold);
-            font-size: 0.88rem;
-            font-weight: 500;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        /* 送出按鈕 */
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--accent-gold);
-            color: var(--white);
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .submit-btn:hover {
-            background-color: #B3966E;
-        }
-
-        /* 頁尾 */
-        .footer {
-            padding: 40px 20px;
-            text-align: center;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            color: #A39284;
-        }
-
-        /* 動畫效果定義 */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        <style>
+            /* --- CSS 樣式與奶茶風色調設定 --- */
+            :root {
+                --bg-cream: #FDFBF7;       /* 溫柔暖白底色 */
+                --milk-tea: #E6DCD2;       /* 奶油奶茶色 */
+                --dark-tea: #8C7A6B;       /* 木質深棕色（文字用） */
+                --accent-gold: #C5A880;    /* 質感金調（點綴用） */
+                --white: #FFFFFF;
+                --shadow: rgba(140, 122, 107, 0.1);
+            }
+    
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+    
+            body {
+                font-family: 'Noto Sans TC', sans-serif;
+                background-color: var(--bg-cream);
+                color: var(--dark-tea);
+                line-height: 1.8;
+                overflow-x: hidden;
+            }
+    
+            /* 浪漫開場區塊 */
+            .hero-section {
+                text-align: center;
+                padding: 30px 20px 10px 20px;
+                overflow: hidden;
+            }
+            
+            .hero-title {
+                font-family: 'Cinzel', serif;
+                font-size: 2rem;
+                line-height: 1.4;
+                letter-spacing: 2px;
+                color: var(--dark-tea);
+                margin: 0 0 15px 0;
+                animation: fadeInDown 1.2s ease;
+            }
+    
+            .hero-subtitle {
+                font-size: 1.1rem;
+                letter-spacing: 2px;
+                font-weight: 300;
+                margin-bottom: 30px;
+                animation: fadeInUp 1.2s ease;
+            }
+    
+            /* 婚紗照樣式 */
+            .hero-wedding-image {
+                width: 100%;
+                max-width: 450px;
+                height: auto;
+                aspect-ratio: 3 / 4;
+                object-fit: cover;
+                border-radius: 250px 250px 0 0;
+                box-shadow: 0 10px 30px var(--shadow);
+                animation: fadeIn 1.5s ease;
+            }
+    
+            /* 婚宴資訊區塊 */
+            .info-section {
+                padding: 80px 20px;
+                text-align: center;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+    
+            .section-title {
+                font-family: 'Cinzel', serif;
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+                margin-bottom: 40px;
+                position: relative;
+                display: inline-block;
+            }
+    
+            .section-title::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 40px;
+                height: 1px;
+                background-color: var(--accent-gold);
+            }
+    
+            .info-cards {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                margin-top: 20px;
+            }
+    
+            @media (max-width: 600px) {
+                .info-cards { grid-template-columns: 1fr; }
+            }
+    
+            .card {
+                background-color: var(--white);
+                padding: 30px 20px;
+                border-radius: 12px;
+                box-shadow: 0 5px 15px var(--shadow);
+                border: 1px solid rgba(230, 220, 210, 0.5);
+            }
+    
+            .card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+                color: var(--accent-gold);
+            }
+    
+            /* RSVP 表單區塊 */
+            .rsvp-section {
+                background-color: #F6F0E8;
+                padding: 80px 20px;
+            }
+    
+            .rsvp-container {
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: var(--white);
+                padding: 40px 30px;
+                border-radius: 16px;
+                box-shadow: 0 10px 40px var(--shadow);
+            }
+    
+            .form-group {
+                margin-bottom: 25px;
+                text-align: left;
+            }
+    
+            .form-group label {
+                display: block;
+                font-size: 0.95rem;
+                font-weight: 500;
+                margin-bottom: 8px;
+            }
+    
+            /* 輸入框樣式 */
+            input[type="text"], input[type="email"], select, textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid var(--milk-tea);
+                border-radius: 8px;
+                background-color: var(--bg-cream);
+                color: var(--dark-tea);
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+                outline: none;
+            }
+    
+            input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+                border-color: var(--accent-gold);
+                box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.2);
+            }
+    
+            /* 單選鈕按鈕組 */
+            .radio-group {
+                display: flex;
+                gap: 15px;
+            }
+    
+            .radio-label {
+                flex: 1;
+                display: block;
+                text-align: center;
+                padding: 12px;
+                border: 1px solid var(--milk-tea);
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                background-color: var(--bg-cream);
+                font-size: 0.95rem;
+            }
+    
+            .radio-group input[type="radio"] {
+                display: none;
+            }
+    
+            .radio-group input[type="radio"]:checked + .radio-label {
+                background-color: var(--dark-tea);
+                color: var(--white);
+                border-color: var(--dark-tea);
+            }
+    
+            /* ✨ Key Fix：關鍵修正動態隱藏區塊 CSS（對應 collapse-field 類別） */
+            .collapse-field {
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                pointer-events: none;
+                transition: max-height 0.4s ease-out, opacity 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+            }
+    
+            .collapse-field.show {
+                max-height: 1000px;
+                opacity: 1;
+                pointer-events: auto;
+            }
+    
+            /* --- 素食與寶寶椅動態卡片美化 CSS --- */
+            .sub-option-box {
+                background-color: #FAFAFA;
+                border: 1px solid #E8E0D8;
+                border-radius: 10px;
+                padding: 0 15px; /* 當收合時邊界設為0 */
+                margin-top: 0;
+                box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+            }
+    
+            .sub-option-box.show {
+                padding: 15px;
+                margin-top: 10px;
+            }
+    
+            .sub-option-box label {
+                font-size: 0.9rem;
+                color: #6B5B52;
+                margin-bottom: 8px;
+                display: block;
+                font-weight: 500;
+            }
+    
+            /* 貼心提示文字樣式 */
+            .hint-text {
+                color: var(--accent-gold);
+                font-size: 0.88rem;
+                font-weight: 500;
+                margin-bottom: 8px;
+                display: block;
+            }
+    
+            /* 送出按鈕 */
+            .submit-btn {
+                width: 100%;
+                padding: 14px;
+                background-color: var(--accent-gold);
+                color: var(--white);
+                border: none;
+                border-radius: 8px;
+                font-size: 1rem;
+                font-weight: 500;
+                letter-spacing: 2px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                margin-top: 10px;
+            }
+    
+            .submit-btn:hover {
+                background-color: #B3966E;
+            }
+    
+            /* 頁尾 */
+            .footer {
+                padding: 40px 20px;
+                text-align: center;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+                color: #A39284;
+            }
+    
+            /* 動畫效果定義 */
+            @keyframes fadeInDown {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
     </style>
 </head>
 <body>
@@ -414,7 +410,12 @@
                                 <option value="2位素食">2 位素食</option>
                                 <option value="3位素食">3 位素食</option>
                                 <option value="4位素食">4 位素食</option>
-                                <option value="5位以上/特殊需求">5位以上或特殊需求（請於備註說明）</option>
+                                <option value="4位素食">5 位素食</option>
+                                <option value="4位素食">6 位素食</option>
+                                <option value="4位素食">7 位素食</option>
+                                <option value="4位素食">8 位素食</option>
+                                <option value="4位素食">9 位素食</option>
+                                <option value="4位素食">10 位素食</option>
                             </select>
                         </div>
                     </div>
@@ -536,9 +537,17 @@
                 digitalLabel.innerText = '電子喜帖 (環保)';
                 if(guestCountInput) guestCountInput.required = true;
             } else {
+                // 選不出席時，收合主要區塊
                 attendDetails.classList.remove('show');
                 digitalLabel.innerText = '電子喜帖 (純留念)';
                 if(guestCountInput) guestCountInput.required = false;
+
+                // 重設素食與寶寶椅選單，並隱藏其小盒子
+                document.getElementById('vegSelect').value = '無素食需求';
+                toggleVegBox('無素食需求');
+                
+                document.getElementById('babyChairSelect').value = '不需要';
+                toggleBabyChairBox('不需要');
             }
 
             const currentTicket = document.querySelector('input[name="inviteType"]:checked');
@@ -558,15 +567,15 @@
                 emailField.classList.add('show');
                 addressField.classList.remove('show');
                 emailInput.required = true;
-                addressInput.required = false; // 隱藏了，絕對不能必填
-                addressInput.value = '';        // 清空內容
+                addressInput.required = false;
+                addressInput.value = '';        
                 updateEmailHint(attendValue); 
             } else if (e.target.value === '紙本') {
                 addressField.classList.add('show');
                 emailField.classList.remove('show');
                 addressInput.required = true;
-                emailInput.required = false;   // 隱藏了，絕對不能必填
-                emailInput.value = '';         // 清空內容
+                emailInput.required = false;   
+                emailInput.value = '';         
             }
         });
     });
@@ -607,7 +616,7 @@
             status: document.querySelector('input[name="attendance"]:checked')?.value || '',
             count: isAttending ? String(document.getElementById('guestCount')?.value || '1') : '0',
             diet: finalDiet,
-            baby_chair: finalBabyChair, // 傳送寶寶椅資料到 GAS
+            baby_chair: finalBabyChair,
             invite_type: inviteTypeSelected,
             email: (inviteTypeSelected === '電子') ? (document.getElementById('guestEmail')?.value || '') : '',
             address: (inviteTypeSelected === '紙本') ? (document.getElementById('guestAddress')?.value || '') : '',
@@ -625,19 +634,7 @@
         .then(() => {
             alert('收到您的回覆囉！期待與您相見！');
             document.getElementById('weddingForm').reset(); 
-            
-            // 重設所有狀態與動態小盒子
-            attendDetails.classList.remove('show');
-            emailField.classList.remove('show');
-            addressField.classList.remove('show');
-            
-            const vegBox = document.getElementById('vegDetailBox');
-            const babyBox = document.getElementById('babyChairDetailBox');
-            if(vegBox) vegBox.classList.remove('show');
-            if(babyBox) babyBox.classList.remove('show');
-
-            emailInput.required = false;
-            addressInput.required = false;
+            resetFormState(); // 清空後重設顯示狀態
         })
         .catch(error => {
             console.error('Error:', error);
@@ -648,6 +645,22 @@
             btn.disabled = false;
         });
     });
+
+    // ✨ 5. 頁面載入時的初始化重設函式
+    function resetFormState() {
+        attendDetails.classList.remove('show');
+        emailField.classList.remove('show');
+        addressField.classList.remove('show');
+        
+        toggleVegBox('無素食需求');
+        toggleBabyChairBox('不需要');
+
+        if(emailInput) emailInput.required = false;
+        if(addressInput) addressInput.required = false;
+    }
+
+    // 進入頁面時立即執行一次初始化
+    resetFormState();
 </script>
 </body>
 </html>
