@@ -21,7 +21,36 @@
                 --white: #FFFFFF;
                 --shadow: rgba(140, 122, 107, 0.1);
             }
-    
+            /* 歡迎文案區塊美化 */
+            .welcome-message {
+                max-width: 600px;
+                margin: 20px auto 30px auto;
+                padding: 25px 20px;
+                background-color: rgba(255, 255, 255, 0.6);
+                border: 1px solid var(--milk-tea);
+                border-radius: 12px;
+                box-shadow: 0 4px 15px var(--shadow);
+                text-align: center;
+            }
+            
+            .welcome-message h2 {
+                font-size: 1.15rem;
+                color: var(--accent-gold);
+                margin-bottom: 15px;
+                font-weight: 600;
+                line-height: 1.5;
+            }
+            
+            .welcome-message p {
+                font-size: 0.92rem;
+                color: var(--dark-tea);
+                margin-bottom: 10px;
+                line-height: 1.7;
+            }
+            
+            .welcome-message p:last-child {
+                margin-bottom: 0;
+            }
             * {
                 box-sizing: border-box;
                 margin: 0;
@@ -297,7 +326,17 @@
     <section class="hero-section">
         <h1 class="hero-title">Shun & Hsia</h1>
         <p class="hero-subtitle">2027.05.15</p>
-        <p class="hero-subtitle">誠摯邀請您參與我們的婚禮</p>
+        
+        <!-- 🌸 溫馨邀請文案區塊 🌸 -->
+        <div class="welcome-message">
+            <h2>【我們結婚了！邀請您一同見證我們的幸福】</h2>
+            <p>親愛的親朋好友們，你好：</p>
+            <p>在這段彼此陪伴的時光裡，感謝有你一路上的支持與祝福，見證了我們的成長與愛情。</p>
+            <p>我們決定要攜手邁入人生下一個階段了！</p>
+            <p>為了能更好地安排當天的宴席與座位，希望你能撥空幫我們填寫這份出席調查表。</p>
+            <p>期待在宴會當天，能親自向你獻上最真摯的感謝，一起分享這份喜悅！</p>
+        </div>
+        
         <img src="IMG_0394.jpeg" alt="Wedding Photo" class="hero-wedding-image">
     </section>
 
@@ -438,40 +477,40 @@
                             </select>
                         </div>
                     </div>
-            </div>
-
-                <!-- 喜帖形式 -->
-                <div class="form-group">
-                    <label>喜帖形式</label>
-                    <div class="radio-group">
-                        <input type="radio" id="typeDigital" name="inviteType" value="電子" required>
-                        <label for="typeDigital" class="radio-label" id="digitalLabel">電子喜帖 (環保)</label>
-
-                        <input type="radio" id="typePaper" name="inviteType" value="紙本">
-                        <label for="typePaper" class="radio-label">紙本喜帖 (傳統)</label>
+            
+                    <!-- 喜帖形式 -->
+                    <div class="form-group">
+                        <label>喜帖形式</label>
+                        <div class="radio-group">
+                            <input type="radio" id="typeDigital" name="inviteType" value="電子" required>
+                            <label for="typeDigital" class="radio-label" id="digitalLabel">電子喜帖 (環保)</label>
+    
+                            <input type="radio" id="typePaper" name="inviteType" value="紙本">
+                            <label for="typePaper" class="radio-label">紙本喜帖 (傳統)</label>
+                        </div>
                     </div>
-                </div>
-
-                <!-- 「電子喜帖」動態跳出 Email -->
-                <div id="emailField" class="conditional-fields">
-                    <div class="conditional-inner">
-                        <div class="form-group">
-                            <span id="emailHint" class="hint-text">✉️ 專屬報到 QR Code 與電子喜帖將會發送到此信箱：</span>
-                            <input type="email" id="guestEmail" name="guestEmail" placeholder="example@gmail.com">
+    
+                    <!-- 「電子喜帖」動態跳出 Email -->
+                    <div id="emailField" class="conditional-fields">
+                        <div class="conditional-inner">
+                            <div class="form-group">
+                                <span id="emailHint" class="hint-text">✉️ 專屬報到 QR Code 與電子喜帖將會發送到此信箱：</span>
+                                <input type="email" id="guestEmail" name="guestEmail" placeholder="example@gmail.com">
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- 「紙本喜帖」動態跳出 地址 -->
+                    <div id="addressField" class="conditional-fields">
+                        <div class="conditional-inner">
+                            <div class="form-group">
+                                <span class="hint-text">✨ 為了將紙本溫暖傳遞給您，請留下收件地址：</span>
+                                <input type="text" id="guestAddress" name="guestAddress" placeholder="郵遞區號與完整地址">
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- 「紙本喜帖」動態跳出 地址 -->
-                <div id="addressField" class="conditional-fields">
-                    <div class="conditional-inner">
-                        <div class="form-group">
-                            <span class="hint-text">✨ 為了將紙本溫暖傳遞給您，請留下收件地址：</span>
-                            <input type="text" id="guestAddress" name="guestAddress" placeholder="郵遞區號與完整地址">
-                        </div>
-                    </div>
-                </div>
-
+                
                 <!-- 祝福的話 -->
                 <div class="form-group">
                     <label for="blessing">給新人的祝福語</label>
