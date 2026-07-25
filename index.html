@@ -381,10 +381,10 @@
                     <label>您是哪一方的親友？</label>
                     <div class="radio-group">
                         <input type="radio" id="side男" name="guestSide" value="男方" required>
-                        <label for="side男" class="radio-label">男方新郎</label>
+                        <label for="side男" class="radio-label">男方</label>
 
                         <input type="radio" id="side女" name="guestSide" value="女方">
-                        <label for="side女" class="radio-label">女方新娘</label>
+                        <label for="side女" class="radio-label">女方</label>
                     </div>
                 </div>
 
@@ -393,12 +393,10 @@
                     <label for="relationship">與新人的關係分類</label>
                     <select id="relationship" name="relationship" required>
                         <option value="" disabled selected>請選擇您的關係類別</option>
-                        <option value="主家親戚">雙方親戚 / 長輩</option>
-                        <option value="國高中同學">國中 / 高中同學</option>
-                        <option value="大學同學">大學同學</option>
+                        <option value="親友">親友</option>
+                        <option value="朋友">朋友</option>
+                        <option value="同事">同事</option>
                         <option value="師長">師長</option>
-                        <option value="公司同事">公司同事 / 主管</option>
-                        <option value="通訊好友">生活至交 / 其他好友</option>
                     </select>
                 </div>
 
@@ -419,6 +417,9 @@
                     <!-- 人數選擇 (1~10人) -->
                     <div class="form-group">
                         <label for="guestCount">出席人數 *</label>
+                        <p>
+                            <label for="guestCount">含自己在內的總人數 (不要忘記算兒童喔~)</label>
+                        </p>
                         <select id="guestCount" class="form-control">
                             <option value="1">1 位</option>
                             <option value="2">2 位</option>
@@ -483,10 +484,10 @@
                         <label>喜帖形式</label>
                         <div class="radio-group">
                             <input type="radio" id="typeDigital" name="inviteType" value="電子" required>
-                            <label for="typeDigital" class="radio-label" id="digitalLabel">電子喜帖 (環保)</label>
+                            <label for="typeDigital" class="radio-label" id="digitalLabel">電子喜帖</label>
     
                             <input type="radio" id="typePaper" name="inviteType" value="紙本">
-                            <label for="typePaper" class="radio-label">紙本喜帖 (傳統)</label>
+                            <label for="typePaper" class="radio-label">紙本喜帖</label>
                         </div>
                     </div>
     
