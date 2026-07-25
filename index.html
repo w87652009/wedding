@@ -393,10 +393,12 @@
                     <label for="relationship">與新人的關係分類</label>
                     <select id="relationship" name="relationship" required>
                         <option value="" disabled selected>請選擇您的關係類別</option>
-                        <option value="親友">親友</option>
+                        <option value="親戚">親戚</option>
                         <option value="朋友">朋友</option>
                         <option value="同事">同事</option>
                         <option value="師長">師長</option>
+                        <option value="長輩的朋友">長輩的朋友</option>
+                        <option value="其他">其他</option>
                     </select>
                 </div>
 
@@ -574,7 +576,7 @@
 
             if (e.target.value === '出席') {
                 attendDetails.classList.add('show');
-                digitalLabel.innerText = '電子喜帖 (環保)';
+                digitalLabel.innerText = '電子喜帖';
                 if(guestCountInput) guestCountInput.required = true;
             } else {
                 // 選不出席時，收合主要區塊
@@ -622,9 +624,9 @@
 
     function updateEmailHint(attendStatus) {
         if (attendStatus === '出席') {
-            emailHint.innerText = '✉️ 專屬報到 QR Code 與電子喜帖將會發送到此信箱：';
+            emailHint.innerText = '✉️ 電子喜帖將會發送到此信箱：';
         } else {
-            emailHint.innerText = '💝 謝謝您的祝福！珍藏版電子喜帖（不含報到條碼）將會寄至此信箱：';
+            emailHint.innerText = '💝 謝謝您的祝福！珍藏版電子喜帖將會寄至此信箱：';
         }
     }
 
