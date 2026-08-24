@@ -91,14 +91,25 @@
             }
     
             /* 婚紗照樣式 (修正橫向照片與焦點) */
+            /.hero-wedding-image {
+            /    width: 100%;
+            /    max-width: 500px;           /* 橫向照片微調最大寬度 */
+            /    height: auto;
+            /    aspect-ratio: 4 / 3;        /* 改為橫向比例 (4:3) */
+            /    object-fit: cover;
+            /    object-position: left center; /* 關鍵：強制把對焦中心拉到左側，完整保留新郎與新娘 */
+            /    border-radius: 250px 250px 0 0; /* 保留拱門曲線 */
+            /   box-shadow: 0 10px 30px var(--shadow);
+            /    animation: fadeIn 1.5s ease;
+            /}
+            /* 婚紗照樣式 */
             .hero-wedding-image {
                 width: 100%;
-                max-width: 500px;           /* 橫向照片微調最大寬度 */
+                max-width: 450px;
                 height: auto;
-                aspect-ratio: 4 / 3;        /* 改為橫向比例 (4:3) */
+                aspect-ratio: 3 / 4;
                 object-fit: cover;
-                object-position: left center; /* 關鍵：強制把對焦中心拉到左側，完整保留新郎與新娘 */
-                border-radius: 250px 250px 0 0; /* 保留拱門曲線 */
+                border-radius: 250px 250px 0 0;
                 box-shadow: 0 10px 30px var(--shadow);
                 animation: fadeIn 1.5s ease;
             }
@@ -338,7 +349,7 @@
             <p>期待在宴會當天，一起分享這份喜悅！</p>
         </div>
         
-        <img src="IMG_5328.jpeg" alt="Wedding Photo" class="hero-wedding-image">
+        <img src="IMG_5337.jpeg" alt="Wedding Photo" class="hero-wedding-image">
     </section>
 
     <!-- 2. 婚宴資訊區塊 -->
