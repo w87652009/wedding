@@ -90,14 +90,15 @@
                 animation: fadeInUp 1.2s ease;
             }
     
-            /* 婚紗照樣式 */
+            /* 婚紗照樣式 (修正橫向照片與焦點) */
             .hero-wedding-image {
                 width: 100%;
-                max-width: 450px;
+                max-width: 500px;           /* 橫向照片微調最大寬度 */
                 height: auto;
-                aspect-ratio: 3 / 4;
+                aspect-ratio: 4 / 3;        /* 改為橫向比例 (4:3) */
                 object-fit: cover;
-                border-radius: 250px 250px 0 0;
+                object-position: left center; /* 關鍵：強制把對焦中心拉到左側，完整保留新郎與新娘 */
+                border-radius: 250px 250px 0 0; /* 保留拱門曲線 */
                 box-shadow: 0 10px 30px var(--shadow);
                 animation: fadeIn 1.5s ease;
             }
